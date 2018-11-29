@@ -8,6 +8,7 @@ import org.mongodb.morphia.Morphia;
 import com.am.konversion.domain.AdwordsAccount;
 import com.am.konversion.domain.Country;
 import com.am.konversion.domain.Currency;
+import com.am.konversion.utils.Utils;
 import com.mongodb.MongoClient;
 
 public class App 
@@ -22,13 +23,15 @@ public class App
     	ac.setCountry(Country.CA);
     	ac.setCurrency(Currency.CAD);
     	ac.setName("max");
+    	/*
+    	if(Utils.patternValidation("annie")) {
+    		ac.setId(id);
+    	}
+    	*/
     	ac.setId("max");
     	ds.save(ac);
     	
-    	/*
-    	String pattern = "\\d{3}[\\-]\\d{3}[\\-]\\d{4}";
-    	Pattern r = Pattern.compile(pattern);
-    	*/
+    	
     	
     }
 }
