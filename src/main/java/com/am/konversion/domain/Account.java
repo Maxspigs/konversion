@@ -4,10 +4,7 @@ import java.util.Set;
 
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
-import org.mongodb.morphia.annotations.Validation;
-
 @Entity("account")
-@Validation(" {id: {$regex: /^\\d{3}[\\-]\\d{3}[\\-]\\d{4}$/ }} ")
 public abstract class Account {
     
     @Id protected String id;

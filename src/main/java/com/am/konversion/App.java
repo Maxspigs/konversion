@@ -1,37 +1,22 @@
 package com.am.konversion;
 
-import java.util.regex.Pattern;
-
-import org.mongodb.morphia.Datastore;
-import org.mongodb.morphia.Morphia;
-
+import com.am.konversion.dao.AccountDAO;
 import com.am.konversion.domain.AdwordsAccount;
 import com.am.konversion.domain.Country;
 import com.am.konversion.domain.Currency;
 import com.am.konversion.utils.Utils;
-import com.mongodb.MongoClient;
 
-public class App 
-{
-    public static void main( String[] args )
-    {
-    	Morphia morphia = new Morphia();
-    	MongoClient client = new MongoClient("localhost", 27017);
-    	Datastore ds = morphia.createDatastore(client, "Konversion");    	 	
-    	
-    	AdwordsAccount ac = new AdwordsAccount();
-    	ac.setCountry(Country.CA);
-    	ac.setCurrency(Currency.CAD);
-    	ac.setName("max");
-    	/*
-    	if(Utils.patternValidation("annie")) {
-    		ac.setId(id);
-    	}
-    	*/
-    	ac.setId("max");
-    	ds.save(ac);
-    	
-    	
-    	
+public class App {
+    
+    public static void main(String[] args) {
+	Utils.createDatastore();
+	
+	AdwordsAccount ac = new AdwordsAccount();
+	ac.setCountry(Country.CA);
+	ac.setCurrency(Currency.CAD);
+	ac.setName("max");
+	ac.setId("max");
+	
+	AccountDAO.createAccount(ac);
     }
 }

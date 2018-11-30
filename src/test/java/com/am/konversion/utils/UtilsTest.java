@@ -13,7 +13,7 @@ public class UtilsTest extends TestCase {
 	}
 
 	public void testPatternValidation() {
-		boolean patate = Utils.patternValidation("123-456-7898");
+		boolean patate = Utils.validateAdwordsAccountId("123-456-7898");
 		assertTrue(patate);
 	}
 	

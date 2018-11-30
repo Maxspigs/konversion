@@ -2,8 +2,6 @@ package com.am.konversion.domain;
 
 import java.util.Set;
 
-import org.mongodb.morphia.annotations.Validation;
-
 public class AdwordsAccount extends Account {
 	
 	public AdwordsAccount() {
@@ -18,7 +16,5 @@ public class AdwordsAccount extends Account {
 		this.currency = currency;
 		this.compaigns = compaigns;
 	}
-	
-	
 	
 }
