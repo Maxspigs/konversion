@@ -2,7 +2,7 @@ package com.am.konversion.domain.account;
 
 import java.util.Set;
 
-import com.am.konversion.domain.Campaign;
+import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
 import com.am.konversion.utils.Utils;

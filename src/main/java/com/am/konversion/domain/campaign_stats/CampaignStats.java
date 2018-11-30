@@ -1,4 +1,4 @@
-package com.am.konversion.domain;
+package com.am.konversion.domain.campaign_stats;
 
 import java.sql.Date;
 

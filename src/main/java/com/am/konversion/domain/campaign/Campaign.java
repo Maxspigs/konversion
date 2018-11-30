@@ -1,10 +1,11 @@
-package com.am.konversion.domain;
+package com.am.konversion.domain.campaign;
 
 import java.util.Set;
 
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
+import com.am.konversion.domain.campaign_stats.CampaignStats;
 import com.am.konversion.domain.enum_konversion.Language;
 
 @Embedded
