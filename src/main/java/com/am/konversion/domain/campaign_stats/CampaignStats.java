@@ -1,15 +1,12 @@
 package com.am.konversion.domain.campaign_stats;
 
-import java.sql.Date;
+import java.util.Date;
 
-import org.mongodb.morphia.annotations.Embedded;
-
-@Embedded
 public class CampaignStats {
 
 	protected Date date;
 	protected int impressions;
-	protected int click;
+	protected int clicks;
 	protected int conversions;
 	protected double cost;
 	protected double impression_share;
@@ -30,12 +27,12 @@ public class CampaignStats {
 		this.impressions = impressions;
 	}
 
-	public int getClick() {
-		return click;
+	public int getClicks() {
+		return clicks;
 	}
 
-	public void setClick(int click) {
-		this.click = click;
+	public void setClicks(int clicks) {
+		this.clicks = clicks;
 	}
 
 	public int getConversions() {

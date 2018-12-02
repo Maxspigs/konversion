@@ -2,6 +2,7 @@ package com.am.konversion.domain.account;
 
 import java.util.Set;
 
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
@@ -10,6 +11,7 @@ import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
+
 @Entity("account")
 public abstract class Account {
     
@@ -21,6 +23,7 @@ public abstract class Account {
     @Reference(lazy=true)
     protected Organisation organisation_id;
     
+    @Embedded
     protected Set<Campaign> compaigns;
 
 	public String getId() {
