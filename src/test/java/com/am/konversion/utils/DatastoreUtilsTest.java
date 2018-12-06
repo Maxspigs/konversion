@@ -5,7 +5,7 @@ import com.am.konversion.domain.account.BingAccount;
 
 import junit.framework.TestCase;
 
-public class UtilsTest extends TestCase {
+public class DatastoreUtilsTest extends TestCase {
 
     protected void setUp() throws Exception {
 	super.setUp();
@@ -16,23 +16,24 @@ public class UtilsTest extends TestCase {
     }
 
     public void testPatternAdwordsValidation() {
-	boolean patate = Utils.validateAccountId("123-456-7898", AdwordsAccount.ID_PATTERN);
+	boolean patate = ValidateUtils.validateAccountId("123-456-7898", AdwordsAccount.ID_PATTERN);
 	assertTrue(patate);
     }
 
     public void testPatternAdwordsValidationFail() {
-	boolean patate = Utils.validateAccountId("BOB", AdwordsAccount.ID_PATTERN);
+	boolean patate = ValidateUtils.validateAccountId("BOB", AdwordsAccount.ID_PATTERN);
 	assertFalse(patate);
     }
 
     public void testPatternBingValidation() {
-	boolean patate = Utils.validateAccountId("123456789", BingAccount.ID_PATTERN);
+	boolean patate = ValidateUtils.validateAccountId("123456789", BingAccount.ID_PATTERN);
 	assertTrue(patate);
     }
 
     public void testPatternBingValidationFail() {
-	boolean patate = Utils.validateAccountId("annie", BingAccount.ID_PATTERN);
+	boolean patate = ValidateUtils.validateAccountId("annie", BingAccount.ID_PATTERN);
 	assertFalse(patate);
     }
+    
 
 }

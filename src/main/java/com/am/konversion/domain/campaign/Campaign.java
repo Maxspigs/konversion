@@ -9,7 +9,7 @@ import org.mongodb.morphia.annotations.Id;
 import com.am.konversion.domain.campaign_stats.CampaignStats;
 import com.am.konversion.domain.enum_konversion.Language;
 
-public class Campaign {
+public abstract class Campaign {
 
 	@Id
 	protected String _id;

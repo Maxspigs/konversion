@@ -2,61 +2,76 @@ package com.am.konversion.domain.campaign_stats;
 
 import java.util.Date;
 
-public class CampaignStats {
+public abstract class CampaignStats {
 
-	protected Date date;
-	protected int impressions;
-	protected int clicks;
-	protected int conversions;
-	protected double cost;
-	protected double impression_share;
+    protected Date date;
+    protected int impressions;
+    protected int clicks;
+    protected int conversions;
+    protected double cost;
+    protected double impression_share;
 
-	public Date getDate() {
-		return date;
-	}
+    public CampaignStats() {
+	super();
+    }
 
-	public void setDate(Date date) {
-		this.date = date;
-	}
+    public CampaignStats(Date date, int impressions, int clicks, int conversions, double cost,
+	    double impression_share) {
+	super();
+	this.date = date;
+	this.impressions = impressions;
+	this.clicks = clicks;
+	this.conversions = conversions;
+	this.cost = cost;
+	this.impression_share = impression_share;
+    }
 
-	public int getImpressions() {
-		return impressions;
-	}
+    public Date getDate() {
+	return date;
+    }
 
-	public void setImpressions(int impressions) {
-		this.impressions = impressions;
-	}
+    public void setDate(Date date) {
+	this.date = date;
+    }
 
-	public int getClicks() {
-		return clicks;
-	}
+    public int getImpressions() {
+	return impressions;
+    }
 
-	public void setClicks(int clicks) {
-		this.clicks = clicks;
-	}
+    public void setImpressions(int impressions) {
+	this.impressions = impressions;
+    }
 
-	public int getConversions() {
-		return conversions;
-	}
+    public int getClicks() {
+	return clicks;
+    }
 
-	public void setConversions(int conversions) {
-		this.conversions = conversions;
-	}
+    public void setClicks(int clicks) {
+	this.clicks = clicks;
+    }
 
-	public double getCost() {
-		return cost;
-	}
+    public int getConversions() {
+	return conversions;
+    }
 
-	public void setCost(double cost) {
-		this.cost = cost;
-	}
+    public void setConversions(int conversions) {
+	this.conversions = conversions;
+    }
 
-	public double getImpression_share() {
-		return impression_share;
-	}
+    public double getCost() {
+	return cost;
+    }
 
-	public void setImpression_share(double impression_share) {
-		this.impression_share = impression_share;
-	}
+    public void setCost(double cost) {
+	this.cost = cost;
+    }
+
+    public double getImpression_share() {
+	return impression_share;
+    }
+
+    public void setImpression_share(double impression_share) {
+	this.impression_share = impression_share;
+    }
 
 }

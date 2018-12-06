@@ -10,7 +10,7 @@ import com.am.konversion.domain.account.AdwordsAccount;
 import com.am.konversion.domain.account.BingAccount;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
-import com.am.konversion.utils.Utils;
+import com.am.konversion.utils.DatastoreUtils;
 
 public class AccountDAOTest {
     private AdwordsAccount adwordsAccount;
@@ -18,7 +18,7 @@ public class AccountDAOTest {
     
     @Before
     public void setUp() throws Exception {
-	Utils.createDatastore();	
+	DatastoreUtils.createDatastore();	
 	
 	adwordsAccount = new AdwordsAccount("123-456-7890", "google pub", Country.CA, Currency.CAD, null);
 	bingAccount = new BingAccount("1234567890", "bing pub", Country.US, Currency.USD, null);
@@ -29,7 +29,7 @@ public class AccountDAOTest {
 	adwordsAccount = null;
 	bingAccount = null;
 	
-	Utils.deleteDatabase();
+	DatastoreUtils.deleteAllTables();
     }
     
     @Test
