@@ -53,5 +53,27 @@ public class AccountDAOTest {
 	bingAccount.setId("123-456-7891");
 	AccountDAO.createAccount(bingAccount);
     }
+    
+    @Test
+    public void deleteAdwordsAccount() {
+	AccountDAO.createAccount(adwordsAccount);
+	assertTrue(AccountDAO.deleteAccount(adwordsAccount));
+    }
+    
+    @Test
+    public void deleteAdwordsAccountNotInDatabase() {
+	assertFalse(AccountDAO.deleteAccount(adwordsAccount));
+    }
+    
+    @Test
+    public void deleteBingAccount() {
+	AccountDAO.createAccount(bingAccount);
+	assertTrue(AccountDAO.deleteAccount(bingAccount));
+    }
+    
+    @Test
+    public void deleteBingAccountNotInDatabase() {
+	assertFalse(AccountDAO.deleteAccount(bingAccount));
+    }
 
 }
