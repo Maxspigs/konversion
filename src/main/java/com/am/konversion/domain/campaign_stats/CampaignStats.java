@@ -1,21 +1,22 @@
 package com.am.konversion.domain.campaign_stats;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class CampaignStats {
 
-	protected Date date;
+	protected LocalDate date;
 	protected int impressions;
 	protected int clicks;
 	protected int conversions;
 	protected double cost;
 	protected double impression_share;
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 
@@ -31,16 +32,24 @@ public class CampaignStats {
 		return clicks;
 	}
 
-	public void setClicks(int clicks) {
-		this.clicks = clicks;
+	public void setClicks(int clicks) throws Exception {
+		if(clicks < this.impressions)
+			this.clicks = clicks;
+		else {
+			throw new Exception("Le nombre de clicks doit être inférieur au nombre d'impressions");
+		}
 	}
 
 	public int getConversions() {
 		return conversions;
 	}
 
-	public void setConversions(int conversions) {
-		this.conversions = conversions;
+	public void setConversions(int conversions) throws Exception {
+		if(conversions < this.clicks)
+			this.conversions = conversions;
+		else {
+			throw new Exception("Le nombre de converions doit être inférieur au nombre de clicks");
+		}
 	}
 
 	public double getCost() {
@@ -52,11 +61,12 @@ public class CampaignStats {
 	}
 
 	public double getImpression_share() {
-		return impression_share;
+		return clicks / impressions;
 	}
-
+	
 	public void setImpression_share(double impression_share) {
 		this.impression_share = impression_share;
 	}
+
 
 }

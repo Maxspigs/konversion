@@ -1,5 +1,6 @@
 package com.am.konversion.domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Set;
 
@@ -8,13 +9,13 @@ import com.am.konversion.domain.campaign.Campaign;
 public class Order {
 
 	private String name;
-	private Date start_Date;
-	private Date end_date;
+	private LocalDate start_Date;
+	private LocalDate end_date;
 	private double budget;
 
 	private Set<Campaign> campaigns;
 
-	public Order(String name, Date start_Date, Date end_date, double budget, Set<Campaign> campaigns) {
+	public Order(String name, LocalDate start_Date, LocalDate end_date, double budget, Set<Campaign> campaigns) {
 		super();
 		this.name = name;
 		this.start_Date = start_Date;
@@ -31,19 +32,19 @@ public class Order {
 		this.name = name;
 	}
 
-	public Date getStart_Date() {
+	public LocalDate getStart_Date() {
 		return start_Date;
 	}
 
-	public void setStart_Date(Date start_Date) {
+	public void setStart_Date(LocalDate start_Date) {
 		this.start_Date = start_Date;
 	}
 
-	public Date getEnd_date() {
+	public LocalDate getEnd_date() {
 		return end_date;
 	}
 
-	public void setEnd_date(Date end_date) {
+	public void setEnd_date(LocalDate end_date) {
 		this.end_date = end_date;
 	}
 
