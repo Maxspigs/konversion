@@ -3,12 +3,16 @@ package com.am.konversion.domain;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 import org.mongodb.morphia.annotations.Reference;
 
 import com.am.konversion.domain.account.Account;
 
+@Entity("organisation")
 public class Organisation {
 
+	@Id
 	private String id;
 	private String name;
 
@@ -25,6 +29,10 @@ public class Organisation {
 		this.orders = orders;
 	}
 
+	public Organisation() {
+		super();
+	}
+	
 	public String getId() {
 		return id;
 	}

@@ -3,11 +3,8 @@ package com.am.konversion.dao;
 import java.util.List;
 
 import org.mongodb.morphia.Key;
-import org.mongodb.morphia.query.Query;
-import org.mongodb.morphia.query.UpdateOperations;
 
 import com.am.konversion.domain.account.Account;
-import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.utils.DatastoreUtils;
 import com.mongodb.WriteResult;
 

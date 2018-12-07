@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 import com.am.konversion.dao.AccountDAO;
+import com.am.konversion.dao.OrganisationDAO;
+import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.account.Account;
 import com.am.konversion.domain.account.AdwordsAccount;
 import com.am.konversion.domain.campaign.AdwordsCampaign;
@@ -34,12 +36,13 @@ public class App {
 	ab.setId("123-312-1343");
 
 	CampaignStats campaignStats = new AdwordsCampaignStats();
-	campaignStats.setClicks(100);
-	campaignStats.setConversions(10);
+	campaignStats.setImpressions(100);
+	campaignStats.setClicks(10);
+	campaignStats.setConversions(5);
 	campaignStats.setCost(200.00);
 	campaignStats.setDate(new Date());
-	campaignStats.setImpression_share(0.93);
-	campaignStats.setImpressions(100);
+	campaignStats.setImpression_share(0.10);
+	
 
 	Campaign campaign = new AdwordsCampaign();
 	campaign.set_id("1");
@@ -72,17 +75,21 @@ public class App {
 	account = AccountDAO.createAccount(account);
 	AccountDAO.createAccount(ab);
 	
+	Organisation organisation = new Organisation();
+	organisation.setName("INTACT");
+	
+	DatastoreUtils.getDatastore().save(organisation);
+	
+	
+	
 	//DatastoreUtils.saveDocument();
 	
-	DatastoreUtils.loadDocument();
+	//DatastoreUtils.loadDocument();
 
 	// AccountDAO.deleteAccount(account);
 
 	
 	// Utils.deleteDatabase();
-	
-	
-	System.out.println(DatastoreUtils.getAllAccount());
 	
 	
     }

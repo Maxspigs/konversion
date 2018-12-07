@@ -7,4 +7,12 @@
 
 \.classpath
 
-.\bin
+bin
+
+.settings
+
+.vscode
+
+target
+
+.settings/org.eclipse.jdt.core.prefs

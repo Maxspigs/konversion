@@ -35,8 +35,8 @@ public class DatastoreUtils {
 
     public static void createDatastore() {
 	Morphia morphia = new Morphia();
-	// client = new MongoClient("192.168.99.100", 32768);
-	client = new MongoClient("localhost", 27017);
+	client = new MongoClient("192.168.99.100", 32768);
+	//client = new MongoClient("localhost", 27017);
 	ds = morphia.createDatastore(client, "konversion");
     }
 
