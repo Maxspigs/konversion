@@ -6,3 +6,5 @@
 *.properties
 
 \.classpath
+
+.\bin
