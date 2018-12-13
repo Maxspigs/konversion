@@ -1,12 +1,8 @@
 package com.am.konversion.domain.account;
 
-import java.util.Set;
-
-import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
-import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
 
@@ -19,31 +15,30 @@ public abstract class Account {
     protected Country country;
     protected Currency currency;
 
-    @Embedded
-    protected Set<Campaign> campaigns;
-
-    /*
-     * @Reference(lazy = true) protected Organisation organisation_id;
-     */
-
-    public Account() {
-	super();
+//    @Embedded
+//    protected Set<Campaign> campaigns;
+//
+//    @Reference(lazy = true)
+//    protected Organisation organisation_id;
+    
+    public Account() {}
+    
+    public Account(String id) throws Exception {
+	setId(id);
     }
 
-    public Account(String _id, String name, Country country, Currency currency, Set<Campaign> campaigns) throws Exception {
-	super();
-	setId(_id);
+    public Account(String id, String name, Country country, Currency currency) throws Exception {
+	setId(id);
 	this.name = name;
 	this.country = country;
 	this.currency = currency;
-	this.campaigns = campaigns;
     }
-    
+
     public String getId() {
 	return _id;
     }
 
-    public abstract void setId(String id) throws Exception;
+    protected abstract void setId(String id) throws Exception;
 
     public String getName() {
 	return name;
@@ -69,18 +64,9 @@ public abstract class Account {
 	this.currency = currency;
     }
 
-    public Set<Campaign> getCampaigns() {
-	return campaigns;
-    }
-
-    public void setCampaigns(Set<Campaign> campaigns) {
-	this.campaigns = campaigns;
-    }
-
     @Override
     public String toString() {
-	return "Account [_id=" + _id + ", name=" + name + ", country=" + country + ", currency=" + currency
-		+ ", campaigns=" + campaigns + "]";
+	return "Account [_id=" + _id + ", name=" + name + ", country=" + country + ", currency=" + currency + "]";
     }
 
 }
