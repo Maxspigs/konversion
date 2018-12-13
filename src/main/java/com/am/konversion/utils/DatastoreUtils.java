@@ -5,58 +5,54 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import com.am.konversion.domain.account.Account;
-import com.am.konversion.domain.account.AdwordsAccount;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
-import com.mongodb.util.JSON;
 
 public class DatastoreUtils {
 
-    private static final String PATH_JSON = "C:\\Users\\annie\\Desktop\\Tech_Info\\json.json";
-    private static MongoClient client;
+    private final String PATH_JSON = "C:\\Users\\annie\\Desktop\\Tech_Info\\json.json";
+    private MongoClient client;
     private static Datastore ds;
-
-    public static void createDatastore() {
+    
+    private DatastoreUtils() {
 	Morphia morphia = new Morphia();
-	client = new MongoClient("192.168.99.100", 32768);
-	//client = new MongoClient("localhost", 27017);
-	ds = morphia.createDatastore(client, "konversion");
+	//client = new MongoClient("192.168.99.100", 32768);
+	client = new MongoClient("localhost", 27017);
+	ds = morphia.createDatastore(client, "konversion");	
     }
 
     public static Datastore getDatastore() {
+	if (ds == null)
+	    new DatastoreUtils();
+	
 	return ds;
     }
 
     public static void deleteAllTables() {
-	ds.getCollection(Account.class).remove(new BasicDBObject());
+	getDatastore().getCollection(Account.class).remove(new BasicDBObject());
     }
 
-    public static void generateStats(LocalDate date_debut, LocalDate date_fin) {
+    public void generateStats(LocalDate date_debut, LocalDate date_fin) {
 
     }
 
-    public static List<DBObject> getAllAccount() {
-	return ds.getCollection(Account.class).find(new BasicDBObject()).toArray();
+    public List<DBObject> getAllAccount() {
+	return getDatastore().getCollection(Account.class).find(new BasicDBObject()).toArray();
     }
 
-    public static void saveDocument() throws IOException {
+    public void saveDocument() throws IOException {
 	File file = new File(PATH_JSON);
 	FileOutputStream fileOutputStream = new FileOutputStream(file);
 	Gson gson = new Gson();
@@ -71,7 +67,7 @@ public class DatastoreUtils {
 	}
     } 
    
-    public static void loadDocument() throws IOException {
+    public void loadDocument() throws IOException {
 	Gson gson = new Gson();
 	String text = "";
 	try {

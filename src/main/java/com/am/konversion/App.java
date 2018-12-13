@@ -1,11 +1,10 @@
 package com.am.konversion;
 
-import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.am.konversion.dao.AccountDAO;
-import com.am.konversion.dao.OrganisationDAO;
 import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.account.Account;
 import com.am.konversion.domain.account.AdwordsAccount;
@@ -21,7 +20,8 @@ import com.am.konversion.utils.DatastoreUtils;
 public class App {
 
     public static void main(String[] args) throws Exception {
-	DatastoreUtils.createDatastore();
+	
+	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 	AdwordsAccount ac = new AdwordsAccount();
 	ac.setCountry(Country.CA);
@@ -40,8 +40,16 @@ public class App {
 	campaignStats.setClicks(10);
 	campaignStats.setConversions(5);
 	campaignStats.setCost(200.00);
-	campaignStats.setDate(new Date());
+	campaignStats.setDate(LocalDate.now());
 	campaignStats.setImpression_share(0.10);
+	
+	CampaignStats campaignStats2 = new AdwordsCampaignStats();
+	campaignStats.setImpressions(300);
+	campaignStats.setClicks(20);
+	campaignStats.setConversions(6);
+	campaignStats.setCost(650.00);
+	campaignStats.setDate(LocalDate.now());
+	campaignStats.setImpression_share(0.80);
 	
 
 	Campaign campaign = new AdwordsCampaign();
@@ -53,6 +61,7 @@ public class App {
 
 	Set<CampaignStats> stats = new HashSet<CampaignStats>();
 	stats.add(campaignStats);
+	stats.add(campaignStats2);
 	campaign.setStats(stats);
 
 	Set<Campaign> campaigns = new HashSet<Campaign>();
@@ -78,7 +87,7 @@ public class App {
 	Organisation organisation = new Organisation();
 	organisation.setName("INTACT");
 	
-	DatastoreUtils.getDatastore().save(organisation);
+	//DatastoreUtils.getDatastore().save(organisation);
 	
 	
 	

@@ -18,7 +18,7 @@ public class AccountDAOTest {
     
     @Before
     public void setUp() throws Exception {
-	DatastoreUtils.createDatastore();	
+	DatastoreUtils.getDatastore();	
 	
 	adwordsAccount = new AdwordsAccount("123-456-7890", "google pub", Country.CA, Currency.CAD, null);
 	bingAccount = new BingAccount("1234567890", "bing pub", Country.US, Currency.USD, null);
@@ -29,7 +29,7 @@ public class AccountDAOTest {
 	adwordsAccount = null;
 	bingAccount = null;
 	
-	DatastoreUtils.deleteAllTables();
+	((DatastoreUtils) DatastoreUtils.getDatastore()).deleteAllTables();
     }
     
     @Test

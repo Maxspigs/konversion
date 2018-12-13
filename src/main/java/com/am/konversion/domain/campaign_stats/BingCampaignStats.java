@@ -1,6 +1,6 @@
 package com.am.konversion.domain.campaign_stats;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public class BingCampaignStats extends CampaignStats {
 
@@ -8,7 +8,7 @@ public class BingCampaignStats extends CampaignStats {
 	super();
     }
 
-    public BingCampaignStats(Date date, int impressions, int clicks, int conversions, double cost,
+    public BingCampaignStats(LocalDate date, int impressions, int clicks, int conversions, double cost,
 	    double impression_share) {
 	super(date, impressions, clicks, conversions, cost, impression_share);
     }
