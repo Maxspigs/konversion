@@ -1,8 +1,11 @@
 package com.am.konversion.domain.account;
 
+import java.util.Set;
+
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
+import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
 
@@ -14,14 +17,12 @@ public abstract class Account {
     protected String name;
     protected Country country;
     protected Currency currency;
+    protected Set<Campaign> campaigns;
 
-//    @Embedded
-//    protected Set<Campaign> campaigns;
-//
 //    @Reference(lazy = true)
 //    protected Organisation organisation_id;
     
-    public Account() {}
+    protected Account() {}
     
     public Account(String id) throws Exception {
 	setId(id);
@@ -62,6 +63,10 @@ public abstract class Account {
 
     public void setCurrency(Currency currency) {
 	this.currency = currency;
+    }
+
+    public Set<Campaign> getCampaigns() {
+        return campaigns;
     }
 
     @Override
