@@ -14,19 +14,20 @@ import java.util.List;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
+import com.am.konversion.dao.AccountDAO;
 import com.am.konversion.domain.account.Account;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
+import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 
 public class DatastoreUtils {
 
-    private final String PATH_JSON = "C:\\Users\\annie\\Desktop\\Tech_Info\\json.json";
-    private MongoClient client;
+    private static final String PATH_JSON = "C:\\Users\\annie\\Desktop\\Tech_Info\\json.json";
+    private static MongoClient client;
     private static Datastore ds;
     
-    private DatastoreUtils() {
+    private static void createDatastore() {
 	Morphia morphia = new Morphia();
 	//client = new MongoClient("192.168.99.100", 32768);
 	client = new MongoClient("localhost", 27017);
@@ -35,29 +36,29 @@ public class DatastoreUtils {
 
     public static Datastore getDatastore() {
 	if (ds == null)
-	    new DatastoreUtils();
+	    createDatastore();
 	
 	return ds;
     }
+    
+    public static DBCollection getAccountTable() {
+	return getDatastore().getCollection(Account.class);
+    }
 
     public static void deleteAllTables() {
-	getDatastore().getCollection(Account.class).remove(new BasicDBObject());
+	getAccountTable().remove(new BasicDBObject());
     }
 
     public void generateStats(LocalDate date_debut, LocalDate date_fin) {
 
     }
 
-    public List<DBObject> getAllAccount() {
-	return getDatastore().getCollection(Account.class).find(new BasicDBObject()).toArray();
-    }
-
-    public void saveDocument() throws IOException {
+    public static void saveDocument() throws IOException {
 	File file = new File(PATH_JSON);
 	FileOutputStream fileOutputStream = new FileOutputStream(file);
 	Gson gson = new Gson();
 	try {
-	    String yourObjectJson = gson.toJson(getAllAccount());
+	    String yourObjectJson = gson.toJson(AccountDAO.find());
 	    fileOutputStream.write(yourObjectJson.getBytes());
 	} catch (IOException e) {
 	    System.out.println("Can't save document " + e.getMessage());
@@ -67,7 +68,7 @@ public class DatastoreUtils {
 	}
     } 
    
-    public void loadDocument() throws IOException {
+    public static void loadDocument() throws IOException {
 	Gson gson = new Gson();
 	String text = "";
 	try {

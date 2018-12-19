@@ -22,8 +22,8 @@ public class App {
 	Account adwords = new AdwordsAccount("123-456-7890", "My Adwords Account", Country.CA, Currency.CAD);
 	Account bing = new BingAccount("123", "My Bing Account", Country.US, Currency.USD);
 
-	adwords = AccountDAO.saveAccount(adwords);
-	bing = AccountDAO.saveAccount(bing);
+	adwords = AccountDAO.createAccount(adwords);
+	bing = AccountDAO.createAccount(bing);
 
 	adwords.setName("Adwords Account");
 	adwords = AccountDAO.updateAccount(adwords);
@@ -33,20 +33,23 @@ public class App {
 	bing = AccountDAO.updateAccount(bing);
 
 	Account test = new AdwordsAccount("147-852-3690");
-	test = AccountDAO.saveAccount(test);
+	test = AccountDAO.createAccount(test);
 	AccountDAO.deleteAccount(test);
 
 	Campaign adwordsCampaign = new AdwordsCampaign("123", "My adwords campaign", Language.FR, 20, 10000,
 		SpendPattern.ALAP);
-	Campaign bingCampaign = new BingCampaign("123", "My bing campaign", Language.EN, 40, 10000);
+	Campaign adwordsCampaign2 = new AdwordsCampaign("456", "My adwords campaign 2", Language.EN, 60, 200000,
+		SpendPattern.ASAP);
+	Campaign bingCampaign = new BingCampaign("231", "My bing campaign", Language.EN, 40, 10000);
 	
 	adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign);
-	adwords = CampaignDAO.addCampaignToAccount(adwords, bingCampaign);
+	adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign2);
 	bing = CampaignDAO.addCampaignToAccount(bing, bingCampaign);
 	
-	System.out.println(adwords.getCampaigns());
-	System.out.println(bing.getCampaigns());
-
+	adwordsCampaign.setBid(25.50);
+	adwordsCampaign.setLanguage(Language.EN);
+	adwordsCampaign = CampaignDAO.updateCampaign(adwordsCampaign);
+	
 //	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //
 //	AdwordsAccount ac = new AdwordsAccount();

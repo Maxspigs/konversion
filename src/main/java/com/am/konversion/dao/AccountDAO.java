@@ -12,7 +12,7 @@ import com.mongodb.WriteResult;
 
 public class AccountDAO {
 
-    public static Account saveAccount(Account account) {
+    public static Account createAccount(Account account) {
 	try {
 	    if (findById(account.getId()) != null)
 		throw new Exception("Account already exist. You should update it or use a different id.");

@@ -34,31 +34,31 @@ public class AccountDAOTest {
     
     @Test
     public void testSaveAdwordsAccount() {
-	assertNotNull(AccountDAO.saveAccount(adwordsAccount));
+	assertNotNull(AccountDAO.createAccount(adwordsAccount));
     }
     
     @Test
     public void testSaveBingAccount() {
-	assertNotNull(AccountDAO.saveAccount(bingAccount));
+	assertNotNull(AccountDAO.createAccount(bingAccount));
     }
     
     @Test
     public void testFindAdwordsAccountById() {
-	Account save = AccountDAO.saveAccount(adwordsAccount);
+	Account save = AccountDAO.createAccount(adwordsAccount);
 	Account result = AccountDAO.findById(save.getId());
 	assertEquals(save.getId(), result.getId());
     }
     
     @Test
     public void testFindBingAccountById() {
-	Account save = AccountDAO.saveAccount(bingAccount);
+	Account save = AccountDAO.createAccount(bingAccount);
 	Account result = AccountDAO.findById(save.getId());
 	assertEquals(save.getId(), result.getId());
     }
     
     @Ignore
     public void deleteAdwordsAccount() {
-	AccountDAO.saveAccount(adwordsAccount);
+	AccountDAO.createAccount(adwordsAccount);
 	assertTrue(AccountDAO.deleteAccount(adwordsAccount));
     }
     
@@ -69,7 +69,7 @@ public class AccountDAOTest {
     
     @Ignore
     public void deleteBingAccount() {
-	AccountDAO.saveAccount(bingAccount);
+	AccountDAO.createAccount(bingAccount);
 	assertTrue(AccountDAO.deleteAccount(bingAccount));
     }
     
