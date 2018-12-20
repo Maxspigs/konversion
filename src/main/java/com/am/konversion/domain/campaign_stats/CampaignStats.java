@@ -54,6 +54,7 @@ public abstract class CampaignStats {
 	if (clicks < this.impressions)
 	    this.clicks = clicks;
 	else {
+		System.out.println("click" + clicks + " < " + "impressions" + this.impressions);
 	    throw new Exception("clicks doit etre inferieur aux nombre d'impressions");
 	}
     }
@@ -66,6 +67,7 @@ public abstract class CampaignStats {
 	if (conversions < this.clicks)
 	    this.conversions = conversions;
 	else {
+		System.out.println("conversions" + conversions + " < " + "click" + this.clicks);
 	    throw new Exception("conversion doit etre inferieur aux nombres de clicks");
 	}
     }

@@ -1,6 +1,7 @@
 package com.am.konversion;
 
 import java.time.LocalDate;
+import java.time.Month;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -30,65 +31,7 @@ public class App {
 
 	public static void main(String[] args) throws Exception {
 
-		DatastoreUtils.deleteAllTables();
-
-		Account adwords = new AdwordsAccount("123-456-7890", "My Adwords Account", Country.CA, Currency.CAD);
-		Account bing = new BingAccount("123", "My Bing Account", Country.US, Currency.USD);
-
-		adwords = AccountDAO.createAccount(adwords);
-		bing = AccountDAO.createAccount(bing);
-
-		adwords.setName("Adwords Account");
-		adwords = AccountDAO.updateAccount(adwords);
-
-		bing.setCountry(Country.CA);
-		bing.setCurrency(Currency.CAD);
-		bing = AccountDAO.updateAccount(bing);
-
-		Account test = new AdwordsAccount("147-852-3690");
-		test = AccountDAO.createAccount(test);
-		AccountDAO.deleteAccount(test);
-
-		Campaign adwordsCampaign = new AdwordsCampaign("123", "My adwords campaign", Language.FR, 20, 10000,
-				SpendPattern.ALAP);
-		Campaign adwordsCampaign2 = new AdwordsCampaign("456", "My adwords campaign 2", Language.EN, 60, 200000,
-				SpendPattern.ASAP);
-		Campaign bingCampaign = new BingCampaign("231", "My bing campaign", Language.EN, 40, 10000);
-
-		adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign);
-		adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign2);
-		bing = CampaignDAO.addCampaignToAccount(bing, bingCampaign);
-
-		adwordsCampaign.setBid(25.50);
-		adwordsCampaign.setLanguage(Language.EN);
-		adwordsCampaign = CampaignDAO.updateCampaign(adwordsCampaign);
-
-		CampaignStats campaignStats = new AdwordsCampaignStats();
-		campaignStats.setImpressions(100);
-		campaignStats.setClicks(10);
-		campaignStats.setConversions(5);
-		campaignStats.setCost(200.00);
-		campaignStats.setDate(LocalDate.now());
-		campaignStats.setImpression_share(0.10);
-
-		CampaignStats campaignStats2 = new AdwordsCampaignStats();
-		campaignStats.setImpressions(300);
-		campaignStats.setClicks(20);
-		campaignStats.setConversions(6);
-		campaignStats.setCost(650.00);
-		campaignStats.setDate(LocalDate.now());
-		campaignStats.setImpression_share(0.80);
-
-		adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats);
-		adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats2);
-
-		Organisation adwordOrganisation = new Organisation("toto", "Toto Organisation");
-		adwordOrganisation = OrganisationDAO.createOrganisation(adwordOrganisation);
-		adwordOrganisation.setName("titty");
-		adwordOrganisation = OrganisationDAO.updateOrganisation(adwordOrganisation);
 		
-		DatastoreUtils.saveAccount();
-		DatastoreUtils.saveOrganisation();
 
 		CommandLineParser parser = new DefaultParser();
 
@@ -97,6 +40,7 @@ public class App {
 		options.addOption("a", "action", true, "Choose delete or load");
 		options.addOption("f", "filename", true, "/path/to/your/file");
 		options.addOption("t", "type", true, "Choose between Account or Organisation.");
+		options.addOption("d", "date_start", true, "Enter a date YYYY/MM/DD");
 
 		// parse the command line arguments
 		CommandLine line = parser.parse(options, args);
@@ -112,6 +56,10 @@ public class App {
 				} else if (line.getOptionValue("t").equals("Organisation")) {
 					DatastoreUtils.loadOrganisation(line.getOptionValue("f"));
 				}
+			} else if (line.getOptionValue("a").equalsIgnoreCase("generate") && line.hasOption("d")
+					|| line.hasOption("date_start") && line.hasOption("d")) {
+				String[] test = line.getOptionValues("d").toString().split("/");
+				DatastoreUtils.generateStats(LocalDate.of(Integer.parseInt(test[0]), Month.of(Integer.parseInt(test[1])), Integer.parseInt(test[2])) , LocalDate.now().minusDays(1));
 			}
 		}
 	}
