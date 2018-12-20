@@ -2,6 +2,11 @@ package com.am.konversion;
 
 import java.time.LocalDate;
 
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.CommandLineParser;
+import org.apache.commons.cli.DefaultParser;
+import org.apache.commons.cli.Options;
+
 import com.am.konversion.dao.AccountDAO;
 import com.am.konversion.dao.CampaignDAO;
 import com.am.konversion.dao.CampaignStatsDAO;
@@ -23,141 +28,92 @@ import com.am.konversion.utils.DatastoreUtils;
 
 public class App {
 
-    public static void main(String[] args) throws Exception {
-	DatastoreUtils.deleteAllTables();
+	public static void main(String[] args) throws Exception {
 
-	Account adwords = new AdwordsAccount("123-456-7890", "My Adwords Account", Country.CA, Currency.CAD);
-	Account bing = new BingAccount("123", "My Bing Account", Country.US, Currency.USD);
+		DatastoreUtils.deleteAllTables();
 
-	adwords = AccountDAO.createAccount(adwords);
-	bing = AccountDAO.createAccount(bing);
+		Account adwords = new AdwordsAccount("123-456-7890", "My Adwords Account", Country.CA, Currency.CAD);
+		Account bing = new BingAccount("123", "My Bing Account", Country.US, Currency.USD);
 
-	adwords.setName("Adwords Account");
-	adwords = AccountDAO.updateAccount(adwords);
+		adwords = AccountDAO.createAccount(adwords);
+		bing = AccountDAO.createAccount(bing);
 
-	bing.setCountry(Country.CA);
-	bing.setCurrency(Currency.CAD);
-	bing = AccountDAO.updateAccount(bing);
+		adwords.setName("Adwords Account");
+		adwords = AccountDAO.updateAccount(adwords);
 
-	Account test = new AdwordsAccount("147-852-3690");
-	test = AccountDAO.createAccount(test);
-	AccountDAO.deleteAccount(test);
+		bing.setCountry(Country.CA);
+		bing.setCurrency(Currency.CAD);
+		bing = AccountDAO.updateAccount(bing);
 
-	Campaign adwordsCampaign = new AdwordsCampaign("123", "My adwords campaign", Language.FR, 20, 10000,
-		SpendPattern.ALAP);
-	Campaign adwordsCampaign2 = new AdwordsCampaign("456", "My adwords campaign 2", Language.EN, 60, 200000,
-		SpendPattern.ASAP);
-	Campaign bingCampaign = new BingCampaign("231", "My bing campaign", Language.EN, 40, 10000);
-	
-	adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign);
-	adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign2);
-	bing = CampaignDAO.addCampaignToAccount(bing, bingCampaign);
-	
-	adwordsCampaign.setBid(25.50);
-	adwordsCampaign.setLanguage(Language.EN);
-	adwordsCampaign = CampaignDAO.updateCampaign(adwordsCampaign);
-	
-	CampaignStats campaignStats = new AdwordsCampaignStats();
-	campaignStats.setImpressions(100);
-	campaignStats.setClicks(10);
-	campaignStats.setConversions(5);
-	campaignStats.setCost(200.00);
-	campaignStats.setDate(LocalDate.now());
-	campaignStats.setImpression_share(0.10);
-	
-	CampaignStats campaignStats2 = new AdwordsCampaignStats();
-	campaignStats.setImpressions(300);
-	campaignStats.setClicks(20);
-	campaignStats.setConversions(6);
-	campaignStats.setCost(650.00);
-	campaignStats.setDate(LocalDate.now());
-	campaignStats.setImpression_share(0.80);
-	
-	adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats);
-	adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats2);
-	
-	
-	Organisation adwordOrganisation = new Organisation("toto", "Toto Organisation");
-	adwordOrganisation = OrganisationDAO.createOrganisation(adwordOrganisation);
-	adwordOrganisation.setName("titty");
-	adwordOrganisation = OrganisationDAO.updateOrganisation(adwordOrganisation);
-	
-//	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//
-//	AdwordsAccount ac = new AdwordsAccount();
-//	ac.setCountry(Country.CA);
-//	ac.setCurrency(Currency.CAD);
-//	ac.setName("annie");
-//	ac.setId("123-454-1245");
-//
-//	AdwordsAccount ab = new AdwordsAccount();
-//	ab.setCountry(Country.CA);
-//	ab.setCurrency(Currency.CAD);
-//	ab.setName("max");
-//	ab.setId("123-312-1343");
-//
-//	CampaignStats campaignStats = new AdwordsCampaignStats();
-//	campaignStats.setImpressions(100);
-//	campaignStats.setClicks(10);
-//	campaignStats.setConversions(5);
-//	campaignStats.setCost(200.00);
-//	campaignStats.setDate(LocalDate.now());
-//	campaignStats.setImpression_share(0.10);
-//	
-//	CampaignStats campaignStats2 = new AdwordsCampaignStats();
-//	campaignStats.setImpressions(300);
-//	campaignStats.setClicks(20);
-//	campaignStats.setConversions(6);
-//	campaignStats.setCost(650.00);
-//	campaignStats.setDate(LocalDate.now());
-//	campaignStats.setImpression_share(0.80);
-//	
-//
-//	Campaign campaign = new AdwordsCampaign();
-//	campaign.set_id("1");
-//	campaign.setBid(40.00);
-//	campaign.setBudget(10000.00);
-//	campaign.setLanguage(Language.FR);
-//	campaign.setName("Facilite");
-//
-//	Set<CampaignStats> stats = new HashSet<CampaignStats>();
-//	stats.add(campaignStats);
-//	stats.add(campaignStats2);
-//	campaign.setStats(stats);
-//
-//	Set<Campaign> campaigns = new HashSet<Campaign>();
-//	campaigns.add(campaign);
-//	ac.setCampaigns(campaigns);
-//
-//	Account account = AccountDAO.createAccount(ac);
-//	System.out.println(account);
-//	
-//	Campaign campaign2 = new AdwordsCampaign();
-//	campaign2.set_id("2");
-//	campaign2.setBid(40);
-//	campaign2.setBudget(20000);
-//	campaign2.setLanguage(Language.EN);
-//	campaign2.setName("UMAknow");
-//	
-//	campaigns.add(campaign2);
-//	account.setCampaigns(campaigns);
-//	
-//	account = AccountDAO.createAccount(account);
-//	AccountDAO.createAccount(ab);
-//	
-//	Organisation organisation = new Organisation();
-//	organisation.setName("INTACT");
+		Account test = new AdwordsAccount("147-852-3690");
+		test = AccountDAO.createAccount(test);
+		AccountDAO.deleteAccount(test);
 
-	// DatastoreUtils.getDatastore().save(organisation);
+		Campaign adwordsCampaign = new AdwordsCampaign("123", "My adwords campaign", Language.FR, 20, 10000,
+				SpendPattern.ALAP);
+		Campaign adwordsCampaign2 = new AdwordsCampaign("456", "My adwords campaign 2", Language.EN, 60, 200000,
+				SpendPattern.ASAP);
+		Campaign bingCampaign = new BingCampaign("231", "My bing campaign", Language.EN, 40, 10000);
 
-	// DatastoreUtils.saveDocument();
+		adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign);
+		adwords = CampaignDAO.addCampaignToAccount(adwords, adwordsCampaign2);
+		bing = CampaignDAO.addCampaignToAccount(bing, bingCampaign);
 
-	// DatastoreUtils.loadDocument();
+		adwordsCampaign.setBid(25.50);
+		adwordsCampaign.setLanguage(Language.EN);
+		adwordsCampaign = CampaignDAO.updateCampaign(adwordsCampaign);
 
-	// AccountDAO.deleteAccount(account);
+		CampaignStats campaignStats = new AdwordsCampaignStats();
+		campaignStats.setImpressions(100);
+		campaignStats.setClicks(10);
+		campaignStats.setConversions(5);
+		campaignStats.setCost(200.00);
+		campaignStats.setDate(LocalDate.now());
+		campaignStats.setImpression_share(0.10);
 
-	// Utils.deleteDatabase();
+		CampaignStats campaignStats2 = new AdwordsCampaignStats();
+		campaignStats.setImpressions(300);
+		campaignStats.setClicks(20);
+		campaignStats.setConversions(6);
+		campaignStats.setCost(650.00);
+		campaignStats.setDate(LocalDate.now());
+		campaignStats.setImpression_share(0.80);
 
-    }
+		adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats);
+		adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats2);
+
+		Organisation adwordOrganisation = new Organisation("toto", "Toto Organisation");
+		adwordOrganisation = OrganisationDAO.createOrganisation(adwordOrganisation);
+		adwordOrganisation.setName("titty");
+		adwordOrganisation = OrganisationDAO.updateOrganisation(adwordOrganisation);
+		
+		DatastoreUtils.saveAccount();
+		DatastoreUtils.saveOrganisation();
+
+		CommandLineParser parser = new DefaultParser();
+
+		// create the Options
+		Options options = new Options();
+		options.addOption("a", "action", true, "Choose delete or load");
+		options.addOption("f", "filename", true, "/path/to/your/file");
+		options.addOption("t", "type", true, "Choose between Account or Organisation.");
+
+		// parse the command line arguments
+		CommandLine line = parser.parse(options, args);
+
+		// validate that block-size has been set
+		if (line.hasOption("a") || line.hasOption("action")) {
+			if (line.getOptionValue("a").equalsIgnoreCase("delete")) {
+				DatastoreUtils.deleteAllTables();
+			} else if (line.getOptionValue("a").equalsIgnoreCase("load") && line.hasOption("f")
+					|| line.hasOption("filename") && line.hasOption("t")) {
+				if (line.getOptionValue("t").equals("Account")) {
+					DatastoreUtils.loadAccount(line.getOptionValue("f"));
+				} else if (line.getOptionValue("t").equals("Organisation")) {
+					DatastoreUtils.loadOrganisation(line.getOptionValue("f"));
+				}
+			}
+		}
+	}
 
 }

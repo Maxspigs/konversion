@@ -24,14 +24,15 @@ import com.mongodb.MongoClient;
 
 public class DatastoreUtils {
 
-    private static final String PATH_JSON = "C:\\Users\\annie\\Desktop\\Tech_Info\\json.json";
+	private static final String ACCOUNT_JSON = "./Account.json";
+	private static final String ORGANISATION_JSON = "./Organisation.json";
     private static MongoClient client;
     private static Datastore ds;
     
     private static void createDatastore() {
 	Morphia morphia = new Morphia();
-	//client = new MongoClient("192.168.99.100", 32768);
-	client = new MongoClient("localhost", 27017);
+	 client = new MongoClient("192.168.99.100", 32769);
+	//client = new MongoClient("localhost", 27017);
 	ds = morphia.createDatastore(client, "konversion");	
     }
 
@@ -59,46 +60,88 @@ public class DatastoreUtils {
 
     }
 
-    public static void saveDocument() throws IOException {
-	File file = new File(PATH_JSON);
-	FileOutputStream fileOutputStream = new FileOutputStream(file);
-	Gson gson = new Gson();
-	try {
-	    String yourObjectJson = gson.toJson(AccountDAO.find());
-	    fileOutputStream.write(yourObjectJson.getBytes());
-	} catch (IOException e) {
-	    System.out.println("Can't save document " + e.getMessage());
-	} finally {
-	    fileOutputStream.flush();
-	    fileOutputStream.close();
+    public static void saveAccount() throws IOException {
+		File file = new File(ACCOUNT_JSON);
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		Gson gson = new Gson();
+		try {
+			String yourObjectJson = gson.toJson(AccountDAO.find());
+			fileOutputStream.write(yourObjectJson.getBytes());
+		} catch (IOException e) {
+			System.out.println("Can't save document " + e.getMessage());
+		} finally {
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		}
 	}
-    } 
-   
-    public static void loadDocument() throws IOException {
-	Gson gson = new Gson();
-	String text = "";
-	try {
-	    File yourFile = new File(PATH_JSON);
-	    InputStream inputStream = new FileInputStream(yourFile);
-	    StringBuilder stringBuilder = new StringBuilder();
-	    if (inputStream != null) {
-	        InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-	        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-	        String receiveString = "";
-	        while ((receiveString = bufferedReader.readLine()) != null){
-	            stringBuilder.append(receiveString);
-	        }
-	        inputStream.close();
-	        text = stringBuilder.toString();
-	    }
-	} catch (FileNotFoundException e) {
-	    //Log your error with Log.e
-	} catch (IOException e) {
-	    //Log your error with Log.e
+
+	public static void saveOrganisation() throws IOException {
+		File file = new File(ORGANISATION_JSON);
+		FileOutputStream fileOutputStream = new FileOutputStream(file);
+		Gson gson = new Gson();
+		try {
+			String yourObjectJson = gson.toJson(AccountDAO.find());
+			fileOutputStream.write(yourObjectJson.getBytes());
+		} catch (IOException e) {
+			System.out.println("Can't save document " + e.getMessage());
+		} finally {
+			fileOutputStream.flush();
+			fileOutputStream.close();
+		}
 	}
-	//Use Gson to recreate your Object from the text String
-	List<Account> account = gson.fromJson(text, List.class);
-	System.out.println("Sysout" + account);
-    }
+
+	public static void loadAccount(String path) throws IOException {
+		Gson gson = new Gson();
+		String text = "";
+		try {
+			File yourFile = new File(path);
+			InputStream inputStream = new FileInputStream(yourFile);
+			StringBuilder stringBuilder = new StringBuilder();
+			if (inputStream != null) {
+				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				String receiveString = "";
+				while ((receiveString = bufferedReader.readLine()) != null) {
+					stringBuilder.append(receiveString);
+				}
+				inputStream.close();
+				text = stringBuilder.toString();
+			}
+		} catch (FileNotFoundException e) {
+			// Log your error with Log.e
+		} catch (IOException e) {
+			// Log your error with Log.e
+		}
+		// Use Gson to recreate your Object from the text String
+		List<Account> account = gson.fromJson(text, List.class);
+		System.out.println("Sysout" + account);
+	}
+
+	public static void loadOrganisation(String path) throws IOException {
+		Gson gson = new Gson();
+		String text = "";
+		try {
+			File yourFile = new File(path);
+			InputStream inputStream = new FileInputStream(yourFile);
+			StringBuilder stringBuilder = new StringBuilder();
+			if (inputStream != null) {
+				InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+				BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+				String receiveString = "";
+				while ((receiveString = bufferedReader.readLine()) != null) {
+					stringBuilder.append(receiveString);
+				}
+				inputStream.close();
+				text = stringBuilder.toString();
+			}
+		} catch (FileNotFoundException e) {
+			// Log your error with Log.e
+		} catch (IOException e) {
+			// Log your error with Log.e
+		}
+		// Use Gson to recreate your Object from the text String
+		List<Organisation> organisation = gson.fromJson(text, List.class);
+		System.out.println("Sysout" + organisation);
+	}
 
 }
