@@ -1,13 +1,20 @@
 package com.am.konversion;
 
+import java.time.LocalDate;
+
 import com.am.konversion.dao.AccountDAO;
 import com.am.konversion.dao.CampaignDAO;
+import com.am.konversion.dao.CampaignStatsDAO;
+import com.am.konversion.dao.OrganisationDAO;
+import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.account.Account;
 import com.am.konversion.domain.account.AdwordsAccount;
 import com.am.konversion.domain.account.BingAccount;
 import com.am.konversion.domain.campaign.AdwordsCampaign;
 import com.am.konversion.domain.campaign.BingCampaign;
 import com.am.konversion.domain.campaign.Campaign;
+import com.am.konversion.domain.campaign_stats.AdwordsCampaignStats;
+import com.am.konversion.domain.campaign_stats.CampaignStats;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
 import com.am.konversion.domain.enum_konversion.Language;
@@ -49,6 +56,31 @@ public class App {
 	adwordsCampaign.setBid(25.50);
 	adwordsCampaign.setLanguage(Language.EN);
 	adwordsCampaign = CampaignDAO.updateCampaign(adwordsCampaign);
+	
+	CampaignStats campaignStats = new AdwordsCampaignStats();
+	campaignStats.setImpressions(100);
+	campaignStats.setClicks(10);
+	campaignStats.setConversions(5);
+	campaignStats.setCost(200.00);
+	campaignStats.setDate(LocalDate.now());
+	campaignStats.setImpression_share(0.10);
+	
+	CampaignStats campaignStats2 = new AdwordsCampaignStats();
+	campaignStats.setImpressions(300);
+	campaignStats.setClicks(20);
+	campaignStats.setConversions(6);
+	campaignStats.setCost(650.00);
+	campaignStats.setDate(LocalDate.now());
+	campaignStats.setImpression_share(0.80);
+	
+	adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats);
+	adwordsCampaign = CampaignStatsDAO.addCampaignStat(adwordsCampaign, campaignStats2);
+	
+	
+	Organisation adwordOrganisation = new Organisation("toto", "Toto Organisation");
+	adwordOrganisation = OrganisationDAO.createOrganisation(adwordOrganisation);
+	adwordOrganisation.setName("titty");
+	adwordOrganisation = OrganisationDAO.updateOrganisation(adwordOrganisation);
 	
 //	SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 //

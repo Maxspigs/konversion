@@ -5,7 +5,9 @@ import java.util.Set;
 import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
+import org.mongodb.morphia.annotations.Reference;
 
+import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.campaign.Campaign;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
@@ -21,11 +23,12 @@ public abstract class Account {
     @Embedded
     protected Set<Campaign> campaigns;
 
-//    @Reference(lazy = true)
-//    protected Organisation organisation_id;
-    
-    protected Account() {}
-    
+    @Reference(lazy = true)
+    protected Organisation organisation_id;
+
+    protected Account() {
+    }
+
     public Account(String id) throws Exception {
 	setId(id);
     }
@@ -68,7 +71,7 @@ public abstract class Account {
     }
 
     public Set<Campaign> getCampaigns() {
-        return campaigns;
+	return campaigns;
     }
 
     @Override

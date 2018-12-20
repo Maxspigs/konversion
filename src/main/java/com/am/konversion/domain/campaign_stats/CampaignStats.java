@@ -54,7 +54,7 @@ public abstract class CampaignStats {
 	if (clicks < this.impressions)
 	    this.clicks = clicks;
 	else {
-	    throw new Exception("clicks doit etre inferieur aux nombre  d'impressions");
+	    throw new Exception("clicks doit etre inferieur aux nombre d'impressions");
 	}
     }
 

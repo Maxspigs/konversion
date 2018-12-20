@@ -1,7 +1,11 @@
 package com.am.konversion.domain.campaign;
 
+import java.util.Set;
+
+import org.mongodb.morphia.annotations.Embedded;
 import org.mongodb.morphia.annotations.Id;
 
+import com.am.konversion.domain.campaign_stats.CampaignStats;
 import com.am.konversion.domain.enum_konversion.Language;
 
 public abstract class Campaign {
@@ -12,9 +16,8 @@ public abstract class Campaign {
     protected Language language;
     protected double bid;
     protected double budget;
-
-//    @Embedded
-//    protected Set<CampaignStats> stats;
+    @Embedded
+    protected Set<CampaignStats> stats;
     
     protected Campaign() {}
     
@@ -64,6 +67,10 @@ public abstract class Campaign {
 
     public void setBudget(double budget) {
 	this.budget = budget;
+    }
+
+    public Set<CampaignStats> getStats() {
+        return stats;
     }
 
     @Override

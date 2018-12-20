@@ -15,6 +15,7 @@ import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
 import com.am.konversion.dao.AccountDAO;
+import com.am.konversion.domain.Organisation;
 import com.am.konversion.domain.account.Account;
 import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
@@ -44,9 +45,14 @@ public class DatastoreUtils {
     public static DBCollection getAccountTable() {
 	return getDatastore().getCollection(Account.class);
     }
+    
+    public static DBCollection getOrganisationTable() {
+	return getDatastore().getCollection(Organisation.class);
+    }
 
     public static void deleteAllTables() {
 	getAccountTable().remove(new BasicDBObject());
+	getOrganisationTable().remove(new BasicDBObject());
     }
 
     public void generateStats(LocalDate date_debut, LocalDate date_fin) {
