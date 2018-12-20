@@ -4,24 +4,24 @@ import static org.junit.Assert.*;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import com.am.konversion.domain.account.Account;
 import com.am.konversion.domain.account.AdwordsAccount;
 import com.am.konversion.domain.account.BingAccount;
 import com.am.konversion.domain.enum_konversion.Country;
 import com.am.konversion.domain.enum_konversion.Currency;
-import com.am.konversion.utils.Utils;
+import com.am.konversion.utils.DatastoreUtils;
 
 public class AccountDAOTest {
     private AdwordsAccount adwordsAccount;
     private BingAccount bingAccount;
     
     @Before
-    public void setUp() throws Exception {
-	Utils.createDatastore();	
-	
-	adwordsAccount = new AdwordsAccount("123-456-7890", "google pub", Country.CA, Currency.CAD, null);
-	bingAccount = new BingAccount("1234567890", "bing pub", Country.US, Currency.USD, null);
+    public void setUp() throws Exception {	
+	adwordsAccount = new AdwordsAccount("123-456-7890", "google pub", Country.CA, Currency.CAD);
+	bingAccount = new BingAccount("1234567890", "bing pub", Country.US, Currency.USD);
     }
     
     @After
@@ -29,49 +29,51 @@ public class AccountDAOTest {
 	adwordsAccount = null;
 	bingAccount = null;
 	
-	Utils.deleteDatabase();
+	DatastoreUtils.deleteAllTables();
     }
     
     @Test
-    public void testCreateAdwordsAccount() {
+    public void testSaveAdwordsAccount() {
 	assertNotNull(AccountDAO.createAccount(adwordsAccount));
     }
     
-    @Test(expected=Exception.class)
-    public void testCreateAdwordsAccountBadID() throws Exception {
-	adwordsAccount.setId("1234567891");
-	AccountDAO.createAccount(adwordsAccount);
-    }
-    
     @Test
-    public void testCreateBingAccount() {
+    public void testSaveBingAccount() {
 	assertNotNull(AccountDAO.createAccount(bingAccount));
     }
     
-    @Test(expected=Exception.class)
-    public void testCreateBingAccountBadID() throws Exception {
-	bingAccount.setId("123-456-7891");
-	AccountDAO.createAccount(bingAccount);
+    @Test
+    public void testFindAdwordsAccountById() {
+	Account save = AccountDAO.createAccount(adwordsAccount);
+	Account result = AccountDAO.findById(save.getId());
+	assertEquals(save.getId(), result.getId());
     }
     
     @Test
+    public void testFindBingAccountById() {
+	Account save = AccountDAO.createAccount(bingAccount);
+	Account result = AccountDAO.findById(save.getId());
+	assertEquals(save.getId(), result.getId());
+    }
+    
+    @Ignore
     public void deleteAdwordsAccount() {
 	AccountDAO.createAccount(adwordsAccount);
 	assertTrue(AccountDAO.deleteAccount(adwordsAccount));
     }
     
-    @Test
+    @Ignore
     public void deleteAdwordsAccountNotInDatabase() {
 	assertFalse(AccountDAO.deleteAccount(adwordsAccount));
     }
     
-    @Test
+    @Ignore
     public void deleteBingAccount() {
 	AccountDAO.createAccount(bingAccount);
 	assertTrue(AccountDAO.deleteAccount(bingAccount));
     }
     
-    @Test
+    @Ignore
     public void deleteBingAccountNotInDatabase() {
 	assertFalse(AccountDAO.deleteAccount(bingAccount));
     }

@@ -6,3 +6,13 @@
 *.properties
 
 \.classpath
+
+bin
+
+.settings
+
+.vscode
+
+target
+
+.settings/org.eclipse.jdt.core.prefs
